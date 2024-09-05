@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
