@@ -1,0 +1,21 @@
+/* About Page */
+.about-container {
+  min-height: 20vh;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  padding: 20px;
+  background: linear-gradient(135deg, #b8e4d8, #eaf6f2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid #0051a2;
+  animation: fadeIn 2.5s ease-in-out;
+}
+
+.about-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-container p {
+  font-size: 1.2rem;
+  color: #333;
+}

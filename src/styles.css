@@ -1,12 +1,143 @@
-/* styles.css */
+/* Global Colors */
+:root {
+  --home-background-start: #d0f2e3; /* Light green for home */
+  --home-background-end: #a6e1d2;   /* Slightly darker green for home */
+  --about-background-start: #f3e4e4; /* Light peach for about */
+  --about-background-end: #f1c6c6;   /* Slightly darker peach for about */
+  --hero-background-start: #3572b8; /* Cool and calm blue for hero */
+  --hero-background-end: #84accb;   /* Slightly lighter blue for hero */
+  --text-color: #333;                /* General text color */
+  --cta-bg-color: #a478f0;          /* Call-to-action button color */
+  --cta-hover-bg-color: #8c6ed4;    /* Call-to-action button hover color */
+  --nav-bg-color: #333;              /* Navigation bar background color */
+  --nav-link-color: #fff;            /* Navigation link color */
+  --nav-link-hover-bg: #555;         /* Navigation link hover background color */
+  --nav-link-hover-color: #256cb2;  /* Navigation link hover color */
+}
 
+/* Global Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: #333;
+  color: var(--text-color);
+  background-color: #f0f0f0;
 }
 
-a {
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 81vh;
+  background: linear-gradient(135deg, var(--hero-background-start), var(--hero-background-end));
+  color: #fff;
+  text-align: center;
+  padding: 35px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.hero-section h1 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  animation: slideIn 1.5s ease-in-out;
+}
+
+.hero-section p {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  animation: slideIn 1.5s ease-in-out 0.5s;
+}
+
+/* Call-to-Action Button */
+.cta-button {
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: var(--cta-bg-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+  background-color: var(--cta-hover-bg-color);
+  transform: scale(1.05);
+}
+
+/* Navigation Bar */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 0;
+  background-color: var(--nav-bg-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo-link {
+  margin-right: auto;
+}
+
+.logo {
+  height: 35px;
+}
+
+.navigation a {
   text-decoration: none;
-  color: inherit;
+  color: var(--nav-link-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 11px 20px 0px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navigation a:hover {
+  background-color: var(--nav-link-hover-bg);
+  color: var(--nav-link-hover-color);
+  cursor: pointer;
+}
+
+/* Footer Styles */
+.footer {
+  text-align: center;
+  padding: 8px;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-link-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
