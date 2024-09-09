@@ -1,0 +1,73 @@
+/* Form Container */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* Form Title */
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form Input Styles */
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  transition: border-color 0.3s ease;
+}
+
+/* Focus State */
+.form-input:focus {
+  border-color: #5a9bd4; /* Highlight color for focus */
+  outline: none;
+}
+
+/* Error State */
+.form-input.ng-invalid.ng-touched,
+.form-input.ng-invalid.ng-dirty {
+  border-color: red;
+}
+
+/* Error Messages */
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+/* Button Styles */
+.button-primary {
+  background-color: var(--button-primary-bg);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+.button-primary:hover {
+  background-color: var(--button-primary-hover-bg);
+}
+
+/* Additional Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

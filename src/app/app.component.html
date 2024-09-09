@@ -1,12 +1,17 @@
-<app-header></app-header>
+<div class="app-container">
+  <app-header></app-header>
 
-<!-- Hero Section -->
-<div class="hero-section">
-  <h1>Welcome to EmployeeWILProj</h1>
-  <p>Empowering your workforce with efficient management tools</p>
-  <button class="cta-button">Get Started</button>
+  <!-- Hero Section -->
+  <div *ngIf="showWelcomePage" class="hero-section">
+    <h1>Welcome to EmployeeWILProj</h1>
+    <p>Empowering your workforce with efficient management tools</p>
+    <button class="cta-button">Get Started</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer></app-footer>
 </div>
-
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>

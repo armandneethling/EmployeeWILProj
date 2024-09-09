@@ -1,1 +1,12 @@
-<p>employee-detail works!</p>
+<div class="container">
+  <h2>Employee Details</h2>
+  <div class="card" *ngFor="let employee of employees">
+    <h3>{{ employee.name }}</h3>
+    <p><strong>Position:</strong> {{ employee.position }}</p>
+    <p><strong>Department:</strong> {{ employee.department }}</p>
+    <p><strong>Email:</strong> {{ employee.email }}</p>
+    <p><strong>Phone:</strong> {{ employee.phone }}</p>
+    <button class="button-primary" (click)="editEmployee(employee.id)">Edit</button>
+    <button class="button-primary" (click)="deleteEmployee(employee.id)">Delete</button>
+  </div>
+</div>
