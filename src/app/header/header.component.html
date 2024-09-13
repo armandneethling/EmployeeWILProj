@@ -1,13 +1,22 @@
-<nav class="navigation">
-  <a routerLink="/" class="logo-link">
-    <img src="assets/favicon.ico" alt="Angular Logo" class="logo">
-  </a>
-  <a routerLink="/home">
-    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-  </a>
-  <a routerLink="/about">About</a>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/register" *ngIf="!authService.isUserLoggedIn()">Register</a>
-  <a routerLink="/login" *ngIf="!authService.isUserLoggedIn()">Login</a>
-  <a routerLink="/profile" *ngIf="authService.isUserLoggedIn()">Profile</a>
+<nav class="side-navbar">
+  <div class="logo-container">
+    <a routerLink="/" class="logo-link">
+      <img src="assets/favicon.ico" alt="Angular Logo" class="logo">
+    </a>
+  </div>
+  <div class="nav-links">
+    <a routerLink="/home">
+      <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="home"></mat-icon>
+    </a>
+    <a routerLink="/about">About</a>
+    <a routerLink="/dashboard">Dashboard</a>
+    <ng-container *ngIf="!isLoggedIn(); else loggedInBlock">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    </ng-container>
+    <ng-template #loggedInBlock>
+      <a routerLink="/profile">Profile</a>
+      <a (click)="logout()">Logout</a>
+    </ng-template>
+  </div>
 </nav>

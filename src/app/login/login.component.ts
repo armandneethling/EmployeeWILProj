@@ -11,25 +11,29 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  constructor(private authService: AuthService, private router: Router) {}
 
+export class LoginComponent {
   credentials = {
     username: '',
-    password: ''
+    password: '',
   };
 
-  @Output() loginSuccess = new EventEmitter<void>()
+  constructor(private router: Router, private authService: AuthService) {}
 
   login() {
+    const validUsername = 'user';
+    const validPassword = 'password';
 
-    if (this.authService.login(this.credentials.username, this.credentials.password)) {
+    if (
+      this.credentials.username === validUsername &&
+      this.credentials.password === validPassword
+    ) {
+      this.authService.login();
       console.log('Login successful');
-      this.loginSuccess.emit();
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/profile']);
     } else {
-      console.error('Invalid credentials')
-      alert('Invalid username or password')
+      console.error('Invalid credentials');
+      alert('Invalid username or password');
     }
   }
 }

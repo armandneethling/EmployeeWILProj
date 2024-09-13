@@ -11,22 +11,25 @@ import { AuthService } from '../auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
   user = {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   register() {
-    if (this.user.password !== this.user.confirmPassword) {
+    // Registration logic here
+    if (this.user.password === this.user.confirmPassword) {
+      console.log('Registration successful');
+      this.authService.login(); // Assuming user logs in upon registration
+      this.router.navigate(['/profile']);
+    } else {
       alert('Passwords do not match');
-      return;
     }
-    console.log('User registered successfully', this.user);
-    this.router.navigate(['/login']);
   }
 }

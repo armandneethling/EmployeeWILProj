@@ -43,21 +43,21 @@ html, body {
 .app-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
+  margin-right: 150px;
+  transition: margin-right 0.3s;
+  height: 100vh;
 }
 
 .container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
-  text-align: center;
-  animation: fadeIn 1.5s ease-in-out;
+  box-sizing: border-box;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
 .content {
@@ -89,41 +89,49 @@ html, body {
   text-align: center;
 }
 
-/* Navigation Bar */
-.navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 8px 20px;
-  background-color: var(--nav-bg-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  position: sticky;
+/* Side Navbar Styles */
+.side-navbar {
+  position: fixed;
   top: 0;
+  right: 0;
+  height: 100%;
+  width: 150px;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-link-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
   z-index: 1000;
-  width: 100%;
+  transition: width 0.3s;
 }
 
-.logo-link {
-  display: flex;
-  align-items: center;
+.logo-container {
+  margin-bottom: 20px;
 }
 
 .logo {
   height: 35px;
 }
 
-.navigation a {
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nav-links a {
   text-decoration: none;
   color: var(--nav-link-color);
   font-size: 1.2rem;
   font-weight: bold;
-  padding: 11px 20px;
-  border-radius: 5px;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
   transition: background-color 0.3s, color 0.3s;
 }
 
-.navigation a:hover {
+.nav-links a:hover {
   background-color: var(--nav-link-hover-bg);
   color: var(--nav-link-hover-color);
   cursor: pointer;
@@ -192,16 +200,19 @@ html, body {
 }
 
 .about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: calc(100vh - 80px);
-  margin: 0 auto;
+  margin-right: 250px;
   padding: 40px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 46.5px);
   background: linear-gradient(135deg, var(--about-background-start), var(--about-background-end));
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-bottom: 4px solid #0051a2;
-  text-align: center;
-  letter-spacing: 0.1rem;
-  animation: fadeIn 2.5s ease-in-out;
+  border-top: 4px solid #0051a2;
 }
 
 /* Profile Page */
@@ -210,27 +221,6 @@ html, body {
   height: 100px;
   border-radius: 50%;
   margin-bottom: 10px;
-}
-
-/* Login&Register Page */
-.loginLabel {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.loginInput {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.registerLabel {
-
-}
-
-.registerInput {
-
 }
 
 /* Footer Styles */
@@ -363,5 +353,17 @@ html, body {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .side-navbar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-top: 10px;
+    right: 0;
+  }
+
+  .app-container {
+    margin-right: 0;
+  }
+}
