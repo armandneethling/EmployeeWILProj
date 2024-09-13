@@ -1,0 +1,18 @@
+<div class="container">
+  <h2>{{ departmentForm.get('id')?.value ? 'Edit Department' : 'Add Department' }}</h2>
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name" class="form-label">Department Name</label>
+      <input id="name" formControlName="name" type="text" class="form-input" />
+      <div *ngIf="name?.invalid && (name?.touched || name?.dirty)" class="error-message">
+        Department name is required.
+      </div>
+    </div>
+    <div class="button-group">
+      <button type="submit" class="button-primary" [disabled]="departmentForm.invalid">
+        {{ departmentForm.get('id')?.value ? 'Update Department' : 'Add Department' }}
+      </button>
+      <button type="button" class="button-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

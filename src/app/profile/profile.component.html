@@ -1,12 +1,11 @@
 <div class="container">
   <h2>Profile</h2>
   <div class="card">
-    <img src="{{ user.profilePicture }}" alt="Profile Picture" class="profile-picture">
-    <h3>{{ user.name }}</h3>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Phone:</strong> {{ user.phone }}</p>
-    <p><strong>Position:</strong> {{ user.position }}</p>
-    <p><strong>Department:</strong> {{ user.department }}</p>
-    <button class="button-primary" (click)="editProfile()">Edit  Profile</button>
+    <div class="card-content">
+      <p><strong>Name:</strong> {{ profile.name }}</p>
+      <p><strong>Email:</strong> {{ profile.email }}</p>
+      <p><strong>Position:</strong> {{ profile.position }}</p>
+      <button class="button-primary" (click)="editProfile()">Edit Profile</button>
+    </div>
   </div>
 </div>

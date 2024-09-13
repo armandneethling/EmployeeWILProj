@@ -1,5 +1,8 @@
 <div class="container">
-  <h2>Employee List</h2>
+  <div class="header">
+    <h2>Employee List</h2>
+    <button class="button-primary add-employee-button" (click)="addEmployee()">Add Employee</button>
+  </div>
   <div class="card" *ngFor="let employee of employees">
     <div class="card-content">
       <h3>{{ employee.name }}</h3>

@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent {
-  user = {
-    profilePicture: 'assets/default-profile.png',
+  profile = {
     name: 'John Doe',
     email: 'john.doe@example.com',
-    phone: '123-456-7890',
-    position: 'Developer',
-    department: 'IT'
+    position: 'Software Engineer'
   };
 
+  constructor(private router: Router) {}
+
   editProfile() {
-    // Logic to edit the user's profile
+    this.router.navigate(['/profile-edit']);
   }
 }

@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Reports List</h2>
+  <div *ngFor="let report of reports" class="card">
+    <div>
+      <h3>{{ report.title }}</h3>
+      <p><strong>Type:</strong> {{ report.type }}</p>
+      <div class="button-group">
+        <button class="button-secondary" (click)="editReport(report.id)">Edit</button>
+        <button class="button-danger" (click)="deleteReport(report.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

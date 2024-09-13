@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -26,7 +27,13 @@ export class EmployeeListComponent {
       phone: '123-456-7890' },
   ];
 
+  constructor(private router: Router) {}
+
   viewDetails(employeeId: number) {
-    // Your logic to view details
+    this.router.navigate(['/employee/', employeeId]);
+  }
+
+  addEmployee() {
+    this.router.navigate(['/employee-form']);
   }
 }

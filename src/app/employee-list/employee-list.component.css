@@ -1,3 +1,4 @@
-.container {
-  animation: fadeIn 2s ease-in-out;
+.header {
+  align-items: flex-end;
+  margin-bottom: 20px;
 }

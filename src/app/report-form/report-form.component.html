@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>{{ reportForm.get('id')?.value ? 'Edit Report' : 'Add Report' }}</h2>
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title" class="form-label">Report Title</label>
+      <input id="title" formControlName="title" type="text" class="form-input" />
+      <div *ngIf="title?.invalid && (title?.touched || title?.dirty)" class="error-message">
+        Report title is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" formControlName="description" class="form-input"></textarea>
+    </div>
+    <div class="button-group">
+      <button type="submit" class="button-primary" (click)="onSubmit()">Add Report</button>
+      <button type="button" class="button-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
