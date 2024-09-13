@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -11,26 +12,21 @@ import { Router } from '@angular/router';
 })
 
 export class EmployeeListComponent {
-  employees = [
-    { id: 1,
-      name: 'John Doe',
-      position: 'Developer',
-      department: 'IT',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890' },
+  employees: any[] = [];
 
-    { id: 2,
-      name: 'Jane Smith',
-      position: 'Designer',
-      department: 'Marketing',
-      email: 'jane.smith@example.com',
-      phone: '123-456-7890' },
-  ];
+  constructor(
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {}
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.employees = employees;
+    });
+  }
 
   viewDetails(employeeId: number) {
-    this.router.navigate(['/employee/', employeeId]);
+    this.router.navigate(['/employee', employeeId]);
   }
 
   addEmployee() {

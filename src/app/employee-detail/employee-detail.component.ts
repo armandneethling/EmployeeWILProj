@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from '../services/employee.service';
+
 
 @Component({
   selector: 'app-employee-detail',
@@ -11,36 +13,27 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class EmployeeDetailComponent {
-  employees = [
-    { id: 1,
-      name: 'John Doe',
-      position: 'Developer',
-      department: 'IT',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890' },
-
-    { id: 2,
-      name: 'Jane Smith',
-      position: 'Designer',
-      department: 'Marketing',
-      email: 'jane.smith@example.com',
-      phone: '123-456-7890' },
-  ];
-
   selectedEmployee: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {}
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
-    this.selectedEmployee = this.employees.find(emp => emp.id === id);
+    this.employeeService.getEmployee(id).subscribe(employee => {
+      this.selectedEmployee = employee;
+    });
   }
 
   editEmployee(employeeId: number) {
-    // Your logic to edit employee
+    this.router.navigate([`/employee-form/${employeeId}`]);
   }
 
   deleteEmployee(employeeId: number) {
-    // Your logic to delete employee
+    this.employeeService.deleteEmployee(employeeId);
+    this.router.navigate(['/employees']);
   }
 }

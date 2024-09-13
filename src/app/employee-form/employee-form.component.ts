@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-employee-form',
@@ -12,9 +14,14 @@ import { CommonModule } from '@angular/common';
 export class EmployeeFormComponent {
   employeeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService
+  ) {
     this.employeeForm = this.fb.group({
-      id: [null], // Optional, if you want to handle IDs
+      id: [null],
       name: ['', Validators.required],
       position: ['', Validators.required],
       department: ['', Validators.required],
@@ -23,36 +30,26 @@ export class EmployeeFormComponent {
     });
   }
 
-  get name() {
-    return this.employeeForm.get('name');
-  }
-
-  get position() {
-    return this.employeeForm.get('position');
-  }
-
-  get department() {
-    return this.employeeForm.get('department');
-  }
-
-  get email() {
-    return this.employeeForm.get('email');
-  }
-
-  get phone() {
-    return this.employeeForm.get('phone');
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.employeeService.getEmployee(+id).subscribe(employee => {
+        if (employee) {
+          this.employeeForm.patchValue(employee);
+        }
+      });
+    }
   }
 
   onSubmit() {
     if (this.employeeForm.valid) {
       const employeeData = this.employeeForm.value;
-      // Your logic to handle form submission
-      console.log('Employee Data:', employeeData);
+      if (employeeData.id) {
+        this.employeeService.updateEmployee(employeeData);
+      } else {
+        this.employeeService.addEmployee(employeeData);
+      }
+      this.router.navigate(['/employees']);
     }
-  }
-
-  // Optional method to populate the form for editing
-  populateForm(employee: any) {
-    this.employeeForm.patchValue(employee);
   }
 }

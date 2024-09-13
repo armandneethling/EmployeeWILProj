@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'employees', component: EmployeeListComponent},
   { path: 'employee/:id', component: EmployeeDetailComponent },
   { path: 'employee-form', component: EmployeeFormComponent},
-  { path: 'employee-from/:id', component: EmployeeFormComponent},
+  { path: 'employee-form/:id', component: EmployeeFormComponent},
   { path: 'departments', component: DepartmentsComponent},
   { path: 'department-form', component: DepartmentFormComponent},
   { path: 'department-list', component: DepartmentListComponent},
