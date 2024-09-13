@@ -7,14 +7,14 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent {
   user = {
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -23,11 +23,13 @@ export class RegisterComponent {
   constructor(private router: Router, private authService: AuthService) {}
 
   register() {
-    // Registration logic here
     if (this.user.password === this.user.confirmPassword) {
-      console.log('Registration successful');
-      this.authService.login(); // Assuming user logs in upon registration
-      this.router.navigate(['/profile']);
+      this.authService.register({ name: this.user.name, password: this.user.password }).subscribe(() => {
+        console.log('Registration successful');
+        this.authService.login({ name: this.user.name, password: this.user.password }).subscribe(() => {
+          this.router.navigate(['/profile']);
+        });
+      });
     } else {
       alert('Passwords do not match');
     }

@@ -1,11 +1,23 @@
-<div class="container">
-  <h2>Profile</h2>
-  <div class="card">
-    <div class="card-content">
-      <p><strong>Name:</strong> {{ profile.name }}</p>
-      <p><strong>Email:</strong> {{ profile.email }}</p>
-      <p><strong>Position:</strong> {{ profile.position }}</p>
-      <button class="button-primary" (click)="editProfile()">Edit Profile</button>
-    </div>
+<div class="profile-container">
+  <h2>User Profile</h2>
+
+  <div *ngIf="user">
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
   </div>
+
+  <form *ngIf="user" (ngSubmit)="updateProfile(user)">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="user.name" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+  </form>
 </div>
+d

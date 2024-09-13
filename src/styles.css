@@ -137,6 +137,26 @@ html, body {
   cursor: pointer;
 }
 
+/* Add this to your existing styles.css */
+
+.logout-link {
+  text-decoration: none;
+  color: var(--nav-link-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px 20px;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-link:hover {
+  background-color: var(--nav-link-hover-bg);
+  color: var(--nav-link-hover-color);
+  cursor: pointer;
+}
+
+
 /* Hero Section */
 .hero-section {
   display: flex;

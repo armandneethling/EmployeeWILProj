@@ -1,24 +1,28 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+export class ProfileComponent implements OnInit {
+  user: User | null = null;
 
-export class ProfileComponent {
-  profile = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    position: 'Software Engineer'
-  };
+  constructor(private authService: AuthService) {}
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(u => this.user = u);
+  }
 
-  editProfile() {
-    this.router.navigate(['/profile-edit']);
+  updateProfile(updatedUser: User): void {
+    if (updatedUser) {
+      this.authService.updateUserProfile(updatedUser);
+    }
   }
 }
