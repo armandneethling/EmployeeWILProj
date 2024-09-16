@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
+import { Credentials } from '../models/credentials.model';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private currentUser = new BehaviorSubject<User | null>(null);
@@ -20,11 +22,13 @@ export class AuthService {
     }
   }
 
-  login(user: User): void {
+  login(credentials: Credentials): Observable<boolean> {
+    const user: User = { name: credentials.name, email: credentials.email };
     this.loggedIn.next(true);
     this.currentUser.next(user);
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('currentUser', JSON.stringify(user));
+    return of(true);
   }
 
   logout(): void {
@@ -45,5 +49,10 @@ export class AuthService {
   updateUserProfile(updatedUser: User): void {
     this.currentUser.next(updatedUser);
     localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+  }
+
+  register(credentials: Credentials): Observable<boolean> {
+    console.log('User registered:', credentials);
+    return of(true);
   }
 }

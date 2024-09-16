@@ -8,8 +8,8 @@
       <p><strong>Email:</strong> {{ selectedEmployee.email }}</p>
       <p><strong>Phone:</strong> {{ selectedEmployee.phone }}</p>
       <div class="button-group">
-        <button class="button-primary" (click)="editEmployee(selectedEmployee.id)">Edit</button>
-        <button class="button-primary" (click)="deleteEmployee(selectedEmployee.id)">Delete</button>
+        <button class="button-secondary" (click)="editEmployee(selectedEmployee.id)">Edit</button>
+        <button class="button-danger" (click)="deleteEmployee(selectedEmployee.id)">Delete</button>
       </div>
     </div>
   </div>

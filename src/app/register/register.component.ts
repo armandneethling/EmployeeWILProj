@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Credentials } from '../models/credentials.model';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,6 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-
 export class RegisterComponent {
   user = {
     name: '',
@@ -24,9 +24,16 @@ export class RegisterComponent {
 
   register() {
     if (this.user.password === this.user.confirmPassword) {
-      this.authService.register({ name: this.user.name, password: this.user.password }).subscribe(() => {
+      const credentials: Credentials = {
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password,
+      };
+
+      // Call register in AuthService
+      this.authService.register(credentials).subscribe(() => {
         console.log('Registration successful');
-        this.authService.login({ name: this.user.name, password: this.user.password }).subscribe(() => {
+        this.authService.login(credentials).subscribe(() => {
           this.router.navigate(['/profile']);
         });
       });

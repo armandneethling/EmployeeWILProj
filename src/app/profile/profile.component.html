@@ -4,20 +4,8 @@
   <div *ngIf="user">
     <p><strong>Name:</strong> {{ user.name }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Position:</strong> {{ user.position }}</p>
   </div>
 
-  <form *ngIf="user" (ngSubmit)="updateProfile(user)">
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" id="name" [(ngModel)]="user.name" name="name" required />
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update Profile</button>
-  </form>
+  <button class="button button-primary" (click)="editProfile()">Edit Profile</button>
 </div>
-d

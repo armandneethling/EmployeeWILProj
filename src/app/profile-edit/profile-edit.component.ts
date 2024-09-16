@@ -1,37 +1,39 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProfileService } from '../services/profile.service';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-profile-edit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.css']
 })
 export class ProfileEditComponent implements OnInit {
-  profile = {
+  profile: User = {
     name: '',
     email: '',
-    position: ''
+    position: '',
   };
 
   constructor(
     private router: Router,
-    private profileService: ProfileService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const currentProfile = this.profileService.getProfile();
-    if (currentProfile) {
-      this.profile = { ...currentProfile };
-    }
+    this.authService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        this.profile = { ...user };
+      }
+    });
   }
 
   saveProfile() {
-    this.profileService.updateProfile(this.profile).subscribe(() => {
-      this.router.navigate(['/profile']);
-    });
+    this.authService.updateUserProfile(this.profile);
+    this.router.navigate(['/profile']);
   }
 }
