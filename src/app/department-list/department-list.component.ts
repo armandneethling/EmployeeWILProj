@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DepartmentService } from '../services/department.service';
 
 @Component({
   selector: 'app-department-list',
@@ -9,21 +10,28 @@ import { Router } from '@angular/router';
   templateUrl: './department-list.component.html',
   styleUrls: ['./department-list.component.css']
 })
-export class DepartmentListComponent {
-  departments = [
-    { id: 1, name: 'Human Resources', description: 'Handles employee relations and benefits.' },
-    { id: 2, name: 'IT', description: 'Manages technology and IT infrastructure.' },
-    // Add more departments as needed
-  ];
 
-  constructor(private router: Router) {}
+export class DepartmentListComponent implements OnInit {
+  departments: any[] = [];
+
+  constructor(
+    private router: Router,
+    private departmentService: DepartmentService
+  ) {}
+
+  ngOnInit(): void {
+    this.departmentService.getDepartments().subscribe(departments => {
+      this.departments = departments;
+    });
+  }
 
   editDepartment(departmentId: number) {
-    this.router.navigate(['/departments/edit', departmentId]);
+    this.router.navigate(['/department-form', departmentId]);
   }
 
   deleteDepartment(departmentId: number) {
-    // Logic to delete the department
-    console.log('Deleted department with ID:', departmentId);
+    this.departmentService.deleteDepartment(departmentId).subscribe(() => {
+      this.departments = this.departments.filter(d => d.id !== departmentId);
+    });
   }
 }

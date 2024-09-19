@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +11,8 @@ import { EmployeeService } from '../services/employee.service';
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.css']
 })
-export class EmployeeFormComponent {
+
+export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
 
   constructor(
@@ -45,11 +46,14 @@ export class EmployeeFormComponent {
     if (this.employeeForm.valid) {
       const employeeData = this.employeeForm.value;
       if (employeeData.id) {
-        this.employeeService.updateEmployee(employeeData);
+        this.employeeService.updateEmployee(employeeData).subscribe(() => {
+          this.router.navigate(['/employees']);
+        });
       } else {
-        this.employeeService.addEmployee(employeeData);
+        this.employeeService.addEmployee(employeeData).subscribe(() => {
+          this.router.navigate(['/employees']);
+        });
       }
-      this.router.navigate(['/employees']);
     }
   }
 }

@@ -1,37 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private employees = [
-    { id: 1, name: 'John Doe', position: 'Developer', department: 'IT', email: 'john.doe@example.com', phone: '123-456-7890' },
-    { id: 2, name: 'Jane Smith', position: 'Designer', department: 'Marketing', email: 'jane.smith@example.com', phone: '123-456-7890' },
-  ];
+  private apiUrl = 'https://localhost:7192/api/employees';
+
+  constructor(private http: HttpClient) {}
 
   getEmployees(): Observable<any[]> {
-    return of(this.employees);
+    return this.http.get<any[]>(this.apiUrl);
   }
 
   getEmployee(id: number): Observable<any> {
-    const employee = this.employees.find(emp => emp.id === id);
-    return of(employee);
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  addEmployee(employee: any): void {
-    employee.id = this.employees.length + 1;
-    this.employees.push(employee);
+  addEmployee(employee: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, employee);
   }
 
-  updateEmployee(updatedEmployee: any): void {
-    const index = this.employees.findIndex(emp => emp.id === updatedEmployee.id);
-    if (index !== -1) {
-      this.employees[index] = updatedEmployee;
-    }
+  updateEmployee(employee: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${employee.id}`, employee);
   }
 
-  deleteEmployee(id: number): void {
-    this.employees = this.employees.filter(emp => emp.id !== id);
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 }

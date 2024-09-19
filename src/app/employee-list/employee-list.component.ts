@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
@@ -11,7 +11,7 @@ import { EmployeeService } from '../services/employee.service';
   styleUrl: './employee-list.component.css'
 })
 
-export class EmployeeListComponent {
+export class EmployeeListComponent implements OnInit {
   employees: any[] = [];
 
   constructor(

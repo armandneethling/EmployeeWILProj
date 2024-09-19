@@ -248,12 +248,15 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 30px;
   margin: 0 auto;
   background-color: var(--card-bg-color);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
+  position: absolute;
+  top: 20%;
+  left: 40%;
 }
 
 /* Footer Styles */
@@ -271,6 +274,9 @@ html, body {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+button {
+  margin-top: 20px;
 }
 
 .button-primary {

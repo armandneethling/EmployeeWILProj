@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
@@ -12,7 +12,7 @@ import { EmployeeService } from '../services/employee.service';
   styleUrl: './employee-detail.component.css'
 })
 
-export class EmployeeDetailComponent {
+export class EmployeeDetailComponent implements OnInit {
   selectedEmployee: any;
 
   constructor(
@@ -33,7 +33,8 @@ export class EmployeeDetailComponent {
   }
 
   deleteEmployee(employeeId: number) {
-    this.employeeService.deleteEmployee(employeeId);
-    this.router.navigate(['/employees']);
+    this.employeeService.deleteEmployee(employeeId).subscribe(() => {
+      this.router.navigate(['/employees']);
+    });
   }
 }

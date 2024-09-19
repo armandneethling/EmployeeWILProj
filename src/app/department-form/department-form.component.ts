@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DepartmentService } from '../services/department.service';
 
 @Component({
   selector: 'app-department-form',
@@ -10,10 +11,16 @@ import { Router } from '@angular/router';
   templateUrl: './department-form.component.html',
   styleUrls: ['./department-form.component.css']
 })
-export class DepartmentFormComponent {
+
+export class DepartmentFormComponent implements OnInit {
   departmentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private departmentService: DepartmentService
+  ) {
     this.departmentForm = this.fb.group({
       id: [null],
       name: ['', Validators.required],
@@ -29,12 +36,29 @@ export class DepartmentFormComponent {
     return this.departmentForm.get('description');
   }
 
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.departmentService.getDepartment(+id).subscribe(department => {
+        if (department) {
+          this.departmentForm.patchValue(department);
+        }
+      });
+    }
+  }
+
   onSubmit() {
     if (this.departmentForm.valid) {
       const formValue = this.departmentForm.value;
-      // Logic to save or update the department
-      console.log('Form submitted:', formValue);
-      this.router.navigate(['/departments']);
+      if (formValue.id) {
+        this.departmentService.updateDepartment(formValue).subscribe(() => {
+          this.router.navigate(['/departments']);
+        });
+      } else {
+        this.departmentService.addDepartment(formValue).subscribe(() => {
+          this.router.navigate(['/departments']);
+        });
+      }
     }
   }
 

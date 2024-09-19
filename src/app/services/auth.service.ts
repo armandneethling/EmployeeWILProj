@@ -1,58 +1,30 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
-import { Credentials } from '../models/credentials.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  private currentUser = new BehaviorSubject<User | null>(null);
+  private apiUrl = 'https://localhost:7192/api/auth';
 
-  constructor() {
-    const savedStatus = localStorage.getItem('loggedIn');
-    if (savedStatus) {
-      this.loggedIn.next(JSON.parse(savedStatus));
-    }
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      this.currentUser.next(JSON.parse(savedUser));
-    }
+  constructor(private http: HttpClient) { }
+
+  login(credentials: { email: string, password: string }): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/login`, credentials);
   }
 
-  login(credentials: Credentials): Observable<boolean> {
-    const user: User = { name: credentials.name, email: credentials.email };
-    this.loggedIn.next(true);
-    this.currentUser.next(user);
-    localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    return of(true);
+  register(user: User): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/register`, user);
   }
 
-  logout(): void {
-    this.loggedIn.next(false);
-    this.currentUser.next(null);
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('currentUser');
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/logout`, {});
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.loggedIn.asObservable();
-  }
-
-  getCurrentUser(): Observable<User | null> {
-    return this.currentUser.asObservable();
-  }
-
-  updateUserProfile(updatedUser: User): void {
-    this.currentUser.next(updatedUser);
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-  }
-
-  register(credentials: Credentials): Observable<boolean> {
-    console.log('User registered:', credentials);
-    return of(true);
+    return this.http.get<boolean>(`${this.apiUrl}/isLoggedIn`);
   }
 }
