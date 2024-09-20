@@ -28,41 +28,46 @@ export class DepartmentFormComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this.departmentForm = this.fb.group({
+      id: [null],
+      name: ['', Validators.required]
+    });
+  }
+
   get name() {
     return this.departmentForm.get('name');
   }
 
-  get description() {
-    return this.departmentForm.get('description');
-  }
-
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.departmentService.getDepartment(+id).subscribe(department => {
-        if (department) {
-          this.departmentForm.patchValue(department);
-        }
-      });
-    }
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.departmentForm.valid) {
-      const formValue = this.departmentForm.value;
-      if (formValue.id) {
-        this.departmentService.updateDepartment(formValue).subscribe(() => {
-          this.router.navigate(['/departments']);
-        });
+      const department = this.departmentForm.value;
+
+      if (department.id) {
+        this.departmentService.updateDepartment(department).subscribe(
+          (response) => {
+            console.log('Department updated successfully', response);
+            this.router.navigate(['/departments']);
+          },
+          (error) => {
+            console.error('Error updating department', error);
+          }
+        );
       } else {
-        this.departmentService.addDepartment(formValue).subscribe(() => {
-          this.router.navigate(['/departments']);
-        });
+        this.departmentService.addDepartment(department).subscribe(
+          (response) => {
+            console.log('Department added successfully', response);
+            this.router.navigate(['/departments']);
+          },
+          (error) => {
+            console.error('Error adding department', error);
+          }
+        );
       }
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.router.navigate(['/departments']);
   }
 }
