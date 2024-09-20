@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
+import { DepartmentService } from '../services/department.service';
 
 @Component({
   selector: 'app-employee-form',
@@ -14,18 +15,21 @@ import { EmployeeService } from '../services/employee.service';
 
 export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
+  departments: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private departmentService: DepartmentService
   ) {
     this.employeeForm = this.fb.group({
       id: [null],
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       position: ['', Validators.required],
-      department: ['', Validators.required],
+      departmentId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)]]
     });
@@ -40,6 +44,10 @@ export class EmployeeFormComponent implements OnInit {
         }
       });
     }
+
+    this.departmentService.getDepartments().subscribe(departments => {
+      this.departments = departments;
+    });
   }
 
   onSubmit() {

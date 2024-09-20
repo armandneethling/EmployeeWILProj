@@ -1,12 +1,13 @@
-<div class="container">
-  <h2>Department List</h2>
-  <div *ngFor="let department of departments" class="card">
-    <div>
-      <h3>{{ department.name }}</h3>
-      <div class="button-group">
-        <button class="button-secondary" (click)="editDepartment(department.id)">Edit</button>
-        <button class="button-danger" (click)="deleteDepartment(department.id)">Delete</button>
+  <div class="container">
+    <h2>Department List</h2>
+    <div *ngFor="let department of departments" class="card">
+      <div>
+        <h3>{{ department.name }}</h3>
+        <div class="button-group">
+          {{ department.name }} (ID: {{ department.id }})
+          <button (click)="editDepartment(department.id)">Edit</button>
+          <button (click)="deleteDepartment(department.id)">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>

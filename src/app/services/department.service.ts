@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
   private apiUrl = 'https://localhost:7192/api/departments';
+  departmentAdded = new EventEmitter<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +26,7 @@ export class DepartmentService {
 
   addDepartment(department: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, department).pipe(
+      tap(response => this.departmentAdded.emit(response)),
       catchError(this.handleError)
     );
   }

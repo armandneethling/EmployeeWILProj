@@ -2,8 +2,13 @@
   <h2>{{ employeeForm.get('id')?.value ? 'Edit Employee' : 'Add Employee' }}</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="employeeForm">
     <div class="form-group">
-      <label class="form-label" for="name">Name</label>
-      <input class="form-input" id="name" formControlName="name">
+      <label class="form-label" for="fname">First Name</label>
+      <input class="form-input" id="fname" formControlName="firstName">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="lname">Last Name</label>
+      <input class="form-input" id="lname" formControlName="lastName">
     </div>
 
     <div class="form-group">
@@ -13,7 +18,9 @@
 
     <div class="form-group">
       <label class="form-label" for="department">Department</label>
-      <input class="form-input" id="department" formControlName="department">
+      <select class="form-input" id="department" formControlName="departmentId">
+        <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+      </select>
     </div>
 
     <div class="form-group">
