@@ -24,7 +24,6 @@ export class DepartmentFormComponent implements OnInit {
     this.departmentForm = this.fb.group({
       id: [null],
       name: ['', Validators.required],
-      description: ['', Validators.required]
     });
   }
 

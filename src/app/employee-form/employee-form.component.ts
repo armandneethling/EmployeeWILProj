@@ -47,11 +47,11 @@ export class EmployeeFormComponent implements OnInit {
       const employeeData = this.employeeForm.value;
       if (employeeData.id) {
         this.employeeService.updateEmployee(employeeData).subscribe(() => {
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/employee-list']);
         });
       } else {
         this.employeeService.addEmployee(employeeData).subscribe(() => {
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/employee-list']);
         });
       }
     }
