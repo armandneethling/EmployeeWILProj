@@ -53,11 +53,11 @@ export class ReportFormComponent implements OnInit {
       const formValue = this.reportForm.value;
       if (formValue.id) {
         this.reportService.updateReport(formValue).subscribe(() => {
-          this.router.navigate(['/reports']);
+          this.router.navigate(['/report-list']);
         });
       } else {
         this.reportService.addReport(formValue).subscribe(() => {
-          this.router.navigate(['/reports']);
+          this.router.navigate(['/report-list']);
         });
       }
     }
