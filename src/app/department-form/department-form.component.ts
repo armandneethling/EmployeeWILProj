@@ -7,11 +7,10 @@ import { DepartmentService } from '../services/department.service';
 @Component({
   selector: 'app-department-form',
   standalone: true,
-  imports: [ CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './department-form.component.html',
   styleUrls: ['./department-form.component.css']
 })
-
 export class DepartmentFormComponent implements OnInit {
   departmentForm: FormGroup;
 
@@ -28,10 +27,13 @@ export class DepartmentFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.departmentForm = this.fb.group({
-      id: [null],
-      name: ['', Validators.required]
-    });
+    // Check if we are editing an existing department
+    const departmentId = this.route.snapshot.paramMap.get('id');
+    if (departmentId) {
+      this.departmentService.getDepartment(+departmentId).subscribe(department => {
+        this.departmentForm.patchValue(department);
+      });
+    }
   }
 
   get name() {
@@ -41,6 +43,7 @@ export class DepartmentFormComponent implements OnInit {
   onSubmit(): void {
     if (this.departmentForm.valid) {
       const department = this.departmentForm.value;
+      console.log('Submitting Department:', department);
 
       if (department.id) {
         this.departmentService.updateDepartment(department).subscribe(
@@ -63,6 +66,8 @@ export class DepartmentFormComponent implements OnInit {
           }
         );
       }
+    } else {
+      console.error('Form is invalid', this.departmentForm.errors);
     }
   }
 
