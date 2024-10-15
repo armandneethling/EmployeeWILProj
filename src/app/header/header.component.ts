@@ -13,14 +13,15 @@ import { Observable } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
-  isLoggedIn!: Observable<boolean>;
+  isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn();
+  constructor(private authService: AuthService, private router: Router) {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
+
+  ngOnInit(): void {}
 
   logout() {
     this.authService.logout().subscribe(() => {

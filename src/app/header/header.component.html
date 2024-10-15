@@ -10,7 +10,7 @@
     </a>
     <a routerLink="/about">About</a>
     <a routerLink="/dashboard">Dashboard</a>
-    <ng-container *ngIf="!(isLoggedIn | async); else loggedInBlock">
+    <ng-container *ngIf="!(isLoggedIn$ | async); else loggedInBlock">
       <a routerLink="/login">Login</a>
       <a routerLink="/register">Register</a>
     </ng-container>

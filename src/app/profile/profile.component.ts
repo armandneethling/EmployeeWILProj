@@ -15,14 +15,19 @@ import { Profile } from '../models/profile.model';
 })
 
 export class ProfileComponent implements OnInit {
-  profile: Profile = { id: 0, name: '', email: '', position: '' };
+  profile: Profile = { id: 0, name: '', email: ''};
 
   constructor(private router: Router, private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.profileService.getProfile().subscribe(profile => {
-      this.profile = profile;
-    });
+    this.profileService.getProfile().subscribe(
+      profile => {
+        this.profile = profile;
+      },
+      error => {
+        console.error('Error fetching profile:', error);
+      }
+    );
   }
 
   editProfile() {
